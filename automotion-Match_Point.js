@@ -1,7 +1,7 @@
 // Author: Rob Barrett (Automotion) - https://automotion.studio
 // Copyright (c) 2022 Rob Barrett. All rights reserved.
 // Version: 1.0
-// Description: Matches the inPoint or outPoint of each selected layer with the layer above or below.
+// Description: Matches the inPoint or outPoint of each selected layer to that of the layer above or below.
 
 (function () {
     app.beginUndoGroup("automotion_inoutPointMatch");
@@ -26,13 +26,6 @@
             // Match the inPoint or outPoint of the layer above
             if (above == true && layerIndex != 1) {
                 matchLayer = comp.layer(layerIndex - 1);
-                /*if (inPoint = true) {
-                    var matchInPoint = matchLayer.inPoint;
-                    l.inPoint = matchInPoint;
-                } else {
-                    var matchOutPoint = matchLayer.matchOutPoint;
-                    l.outPoint = matchOutPoint;
-                }*/
             }
             // Match the inPoint or outPoint of the layer below
             else if (above == false && layerIndex != comp.numLayers) {
@@ -52,7 +45,6 @@
             
         };
     };
-    
         
     app.endUndoGroup();
 })();
