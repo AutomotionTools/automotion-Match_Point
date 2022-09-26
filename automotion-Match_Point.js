@@ -7,8 +7,8 @@
     app.beginUndoGroup("automotion_inoutPointMatch");
 
     // Default parameters
-    var inPoint = false; // true = inPoints; false = outPoints
-    var above = false; // true = Layer above; false = Layer below
+    var inPoint = true; // true = inPoints; false = outPoints
+    var above = true; // true = Layer above; false = Layer below
 
     // Get comp and layer info
     var comp = app.project.activeItem;
