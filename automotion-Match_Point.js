@@ -7,8 +7,8 @@
     app.beginUndoGroup("automotion_inoutPointMatch");
 
     // Default parameters
-    var inPoint = true; // true = inPoints; false = outPoints
-    var above = true; // true = Layer above; false = Layer below
+    var layerInPoint = true; // true = inPoints; false = outPoints
+    var layerAbove = true; // true = Layer above; false = Layer below
 
     // Get comp and layer info
     var comp = app.project.activeItem;
@@ -22,26 +22,34 @@
             var l = layers[i];
             var layerIndex = l.index;
             var matchLayer = null;
+            var valid = null;
 
             // Match the inPoint or outPoint of the layer above
-            if (above == true && layerIndex != 1) {
+            if (layerAbove == true && layerIndex != 1) {
                 matchLayer = comp.layer(layerIndex - 1);
+                valid = true;
             }
             // Match the inPoint or outPoint of the layer below
-            else if (above == false && layerIndex != comp.numLayers) {
+            else if (layerAbove == false && layerIndex != comp.numLayers) {
                 matchLayer = comp.layer(layerIndex + 1);
+                valid = true;
             }
 
             function matchTime(matchLayer) {
-                if (inPoint == true) {
+                if (layerInPoint == true) {
+                    var matchStart = matchLayer.startTime;
                     var matchPoint = matchLayer.inPoint;
+                    var thisPoint = l.inPoint;
+                    l.startTime = matchPoint - thisPoint;
                     l.inPoint = matchPoint;
                 } else {
                     var matchOutPoint = matchLayer.outPoint;
                     l.outPoint = matchOutPoint;
                 }
             };
-            matchTime(matchLayer);
+            if (valid == true) {
+                matchTime(matchLayer);
+            };
             
         };
     };
