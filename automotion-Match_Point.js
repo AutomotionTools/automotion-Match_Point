@@ -4,10 +4,10 @@
 // Description: Matches the inPoint or outPoint of each selected layer to that of the layer above or below.
 
 (function () {
-    app.beginUndoGroup("automotion_inoutPointMatch");
+    app.beginUndoGroup("automotion_MatchPoint");
 
     // Default parameters
-    var layerInPoint = true; // true = inPoints; false = outPoints
+    var layerPoint = "both"; // in = inPoints; out = outPoints; both = inPoints and outPoints
     var layerAbove = true; // true = Layer above; false = Layer below
 
     // Get comp and layer info
@@ -36,13 +36,14 @@
             }
 
             function matchTime(matchLayer) {
-                if (layerInPoint == true) {
+                if (layerPoint == "in" || layerPoint == "both") {
                     var matchStart = matchLayer.startTime;
                     var matchPoint = matchLayer.inPoint;
                     var thisPoint = l.inPoint;
                     l.startTime = matchPoint - thisPoint;
                     l.inPoint = matchPoint;
-                } else {
+                }
+                if (layerPoint == "out" || layerPoint == "both") {
                     var matchOutPoint = matchLayer.outPoint;
                     l.outPoint = matchOutPoint;
                 }
